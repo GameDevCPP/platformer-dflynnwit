@@ -81,12 +81,18 @@ void Engine::Render(RenderWindow& window) {
 
 void Engine::Start(unsigned int width, unsigned int height,
                    const std::string& gameName, Scene* scn) {
-  RenderWindow window(VideoMode(width, height), gameName);
+  RenderWindow window(VideoMode({width, height}), gameName);
   _gameName = gameName;
   _window = &window;
+
+    std::cout << "renderWindow initialised\n";
   Renderer::initialise(window);
+    std::cout << "render initialised\n";
   Physics::initialise();
+  std::cout << "physics initialised\n";
+
   ChangeScene(scn);
+  std::cout << "change scene initialised\n";
   while (window.isOpen()) {
     Event event;
     while (window.pollEvent(event)) {
