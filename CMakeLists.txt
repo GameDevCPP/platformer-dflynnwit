@@ -4,7 +4,7 @@ if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP /EHsc" CACHE INTERNAL "" FORCE)
 elseif(APPLE)
     message("hello apple")
-    set(CMAKE_OSX_DEPLOYMENT_TARGET 10.9 CACHE STRING "")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15 CACHE STRING "")
 endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,6 +21,11 @@ add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND}
         -E copy_directory
         "${PROJECT_SOURCE_DIR}/res"
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>/res
+        )
+add_custom_target(copy_resources_rootdir ALL COMMAND ${CMAKE_COMMAND}
+        -E copy_directory
+        "${PROJECT_SOURCE_DIR}/res"
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res
         )
 
 #### Add External Dependencies ####
@@ -77,7 +82,8 @@ source_group("resources" FILES ${RESOURCE_FILES})
 target_link_libraries(PRACTICAL_7_PLATFORMER lib_engine)
 set(EXECUTABLES ${EXECUTABLES} PRACTICAL_7_PLATFORMER)
 
-add_dependencies(PRACTICAL_7_PLATFORMER copy_resources)
+add_dependencies(PRACTICAL_7_PLATFORMER copy_resources copy_resources_rootdir)
+
 
 set_target_properties(PRACTICAL_7_PLATFORMER
         PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
