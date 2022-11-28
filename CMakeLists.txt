@@ -85,12 +85,42 @@ set(EXECUTABLES ${EXECUTABLES} PRACTICAL_7_PLATFORMER)
 
 add_dependencies(PRACTICAL_7_PLATFORMER copy_resources copy_resources_rootdir)
 
+#if windows
+#if (MSVC)
+#    #copy dlls
+#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#            "${SFML_INCS}/../bin/openal32.dll"
+#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
+#            )
+#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#            "${SFML_INCS}/../bin/sfml-audio-2.dll"
+#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
+#            )
+#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#            "${SFML_INCS}/../bin/sfml-graphics-2.dll"
+#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
+#            )
+#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#            "${SFML_INCS}/../bin/sfml-system-2.dll"
+#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
+#            )
+#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#            "${SFML_INCS}/../bin/sfml-window-2.dll"
+#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
+#            )
+#endif()
+
 
 set_target_properties(PRACTICAL_7_PLATFORMER
         PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
         )
-
+if (MSVC)
 foreach(exe ${EXECUTABLES})
     set_target_properties(${exe} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
@@ -102,5 +132,5 @@ foreach(exe ${EXECUTABLES})
             "${CMAKE_BINARY_DIR}/lib/sfml/bin/"
             $<TARGET_FILE_DIR:${exe}>)
 endforeach()
-
+endif()
 #@@@-
