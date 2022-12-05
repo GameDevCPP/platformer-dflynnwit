@@ -4,6 +4,7 @@
 #include "../components/cmp_hurt_player.h"
 #include "../components/cmp_physics.h"
 #include "../components/cmp_player_physics.h"
+#include "../components/cmp_player_rand_turrent.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
@@ -35,7 +36,9 @@ void Level2Scene::Load() {
 
     // *********************************
     player->addTag("player");
-    player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
+      //randturret
+    player->addComponent<PlayerRandTurretComponent>();
+
   }
 
   // Create Enemy
