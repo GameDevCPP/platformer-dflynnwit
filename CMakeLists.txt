@@ -1,8 +1,7 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.9)
 # Compiler flags
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP /EHsc" CACHE INTERNAL "" FORCE)
-
 elseif(APPLE)
     message("hello apple")
     set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15 CACHE STRING "")
@@ -10,7 +9,7 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(Games_Engineering)
+project(Platformer_for_wit)
 
 #### setup Directories ####
 #Main output directory
@@ -85,52 +84,23 @@ set(EXECUTABLES ${EXECUTABLES} PRACTICAL_7_PLATFORMER)
 
 add_dependencies(PRACTICAL_7_PLATFORMER copy_resources copy_resources_rootdir)
 
-#if windows
-#if (MSVC)
-#    #copy dlls
-#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
-#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#            "${SFML_INCS}/../bin/openal32.dll"
-#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
-#            )
-#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
-#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#            "${SFML_INCS}/../bin/sfml-audio-2.dll"
-#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
-#            )
-#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
-#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#            "${SFML_INCS}/../bin/sfml-graphics-2.dll"
-#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
-#            )
-#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
-#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#            "${SFML_INCS}/../bin/sfml-system-2.dll"
-#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
-#            )
-#    add_custom_command(TARGET PRACTICAL_7_PLATFORMER POST_BUILD
-#            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#            "${SFML_INCS}/../bin/sfml-window-2.dll"
-#            $<TARGET_FILE_DIR:PRACTICAL_7_PLATFORMER>
-#            )
-#endif()
-
 
 set_target_properties(PRACTICAL_7_PLATFORMER
         PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
         )
-if (MSVC)
-foreach(exe ${EXECUTABLES})
-    set_target_properties(${exe} PROPERTIES
-            RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-            RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-            )
-    #add all SFML dlls to the output directory
-    add_custom_command(TARGET ${exe} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-            "${CMAKE_BINARY_DIR}/lib/sfml/bin/"
-            $<TARGET_FILE_DIR:${exe}>)
-endforeach()
-endif()
+
+
+
+
+
+#file(GLOB_RECURSE SOURCES lab_8_steering/*.cpp lab_8_steering/*.h)
+#file(GLOB_RECURSE CMPNTS lab_8_steering/components/*.cpp lab_8_steering/components/*.h)
+#file(GLOB_RECURSE SCENES lab_8_steering/scenes/*.cpp lab_8_steering/scenes/*.h)
+#add_executable(LAB_8_STEERING ${SOURCES} ${CMPNTS} ${SCENES} ${RESOURCE_FILES} lab_8_steering/components/cmp_ai_steering.cpp lab_8_steering/components/cmp_ai_steering.h)
+#target_link_libraries(LAB_8_STEERING lib_engine)
+#set(EXECUTABLES ${EXECUTABLES} LAB_8_STEERING)
+
+#add_dependencies(LAB_8_STEERING copy_resources copy_resources_rootdir)
+
 #@@@-
