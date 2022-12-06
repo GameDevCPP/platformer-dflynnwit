@@ -9,7 +9,7 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(Games_Engineering)
+project(Platformer_for_wit)
 
 #### setup Directories ####
 #Main output directory
@@ -93,13 +93,14 @@ set_target_properties(PRACTICAL_7_PLATFORMER
 
 
 
-file(GLOB_RECURSE SOURCES lab_8_steering/*.cpp lab_8_steering/*.h)
-file(GLOB_RECURSE CMPNTS lab_8_steering/components/*.cpp lab_8_steering/components/*.h)
-file(GLOB_RECURSE SCENES lab_8_steering/scenes/*.cpp lab_8_steering/scenes/*.h)
-add_executable(LAB_8_STEERING ${SOURCES} ${CMPNTS} ${SCENES} ${RESOURCE_FILES} lab_8_steering/components/cmp_ai_steering.cpp lab_8_steering/components/cmp_ai_steering.h)
-target_link_libraries(LAB_8_STEERING lib_engine)
-set(EXECUTABLES ${EXECUTABLES} LAB_8_STEERING)
 
-add_dependencies(LAB_8_STEERING copy_resources copy_resources_rootdir)
+#file(GLOB_RECURSE SOURCES lab_8_steering/*.cpp lab_8_steering/*.h)
+#file(GLOB_RECURSE CMPNTS lab_8_steering/components/*.cpp lab_8_steering/components/*.h)
+#file(GLOB_RECURSE SCENES lab_8_steering/scenes/*.cpp lab_8_steering/scenes/*.h)
+#add_executable(LAB_8_STEERING ${SOURCES} ${CMPNTS} ${SCENES} ${RESOURCE_FILES} lab_8_steering/components/cmp_ai_steering.cpp lab_8_steering/components/cmp_ai_steering.h)
+#target_link_libraries(LAB_8_STEERING lib_engine)
+#set(EXECUTABLES ${EXECUTABLES} LAB_8_STEERING)
+
+#add_dependencies(LAB_8_STEERING copy_resources copy_resources_rootdir)
 
 #@@@-
