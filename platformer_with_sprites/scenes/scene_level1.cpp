@@ -3,6 +3,7 @@
 #include "../components/cmp_sprite.h"
 #include "../game.h"
 #include <LevelSystem.h>
+#include <system_resources.h>
 #include <iostream>
 #include <thread>
 
@@ -10,6 +11,9 @@ using namespace std;
 using namespace sf;
 
 static shared_ptr<Entity> player;
+std::shared_ptr<sf::Texture> playerSpriteIdle;
+std::shared_ptr<sf::Texture> playerSpriteMoving;
+sf::IntRect playerRect;
 
 void Level1Scene::Load() {
   cout << " Scene 1 Load" << endl;
@@ -22,10 +26,29 @@ void Level1Scene::Load() {
   {
     player = makeEntity();
     player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
-    auto s = player->addComponent<ShapeComponent>();
-    s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
-    s->getShape().setFillColor(Color::Magenta);
-    s->getShape().setOrigin(Vector2f(10.f, 15.f));
+    //auto s = player->addComponent<ShapeComponent>();
+    //use sprites instead of shapes
+    auto s = player->addComponent<SpriteComponent>();
+      playerSpriteIdle = make_shared<Texture>();
+      playerSpriteMoving = make_shared<Texture>();
+      playerRect = IntRect();
+
+
+      playerRect = { Vector2i(0, 0), Vector2i(150, 150) };
+
+      playerSpriteIdle = Resources::get<Texture>("Idle.png");
+      playerSpriteMoving = Resources::get<Texture>("Run.png");
+
+
+
+    //s->setTexture(TextureManager::getTexture("res/player.png"));
+
+
+
+//    s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
+//
+//    s->getShape().setFillColor(Color::Magenta);
+//    s->getShape().setOrigin(Vector2f(10.f, 15.f));
 
     player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
   }
