@@ -90,8 +90,44 @@ set_target_properties(PRACTICAL_7_PLATFORMER
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
         )
 
+## 7 - platformer_with_sprites
+file(GLOB_RECURSE SOURCES platformer_with_sprites/*.cpp platformer_with_sprites/*.h)
+file(GLOB_RECURSE CMPNTS platformer_with_sprites/components/*.cpp platformer_with_sprites/components/*.h)
+file(GLOB_RECURSE SCENES platformer_with_sprites/scenes/*.cpp platformer_with_sprites/scenes/*.h)
+add_executable(PLATFORMER_WITH_SPRITES ${SOURCES} ${RESOURCE_FILES})
+source_group("components" FILES ${CMPNTS})
+source_group("resources" FILES ${RESOURCE_FILES})
+#target_include_directories(PLATFORMER_WITH_SPRITES SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
+target_link_libraries(PLATFORMER_WITH_SPRITES lib_engine)
+set(EXECUTABLES ${EXECUTABLES} PLATFORMER_WITH_SPRITES)
 
+add_dependencies(PLATFORMER_WITH_SPRITES copy_resources copy_resources_rootdir)
 
+set_target_properties(PLATFORMER_WITH_SPRITES
+        PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
+        )
+
+#### Link Dependencies ####
+foreach (exe ${EXECUTABLES})
+    #Set working directory to build dir in visual studio
+    set_target_properties(${exe} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
+            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
+            )
+
+    #Add all SFML libs.
+    target_link_libraries(${exe}
+            #lib_maths # We'll make this later.
+            optimized sfml-graphics debug sfml-graphics-d
+            optimized sfml-audio debug sfml-audio-d
+            optimized sfml-window debug sfml-window-d
+            optimized sfml-system debug sfml-system-d
+            optimized sfml-graphics debug sfml-graphics-d
+            optimized sfml-main
+            )
+
+    add_dependencies(${exe} sfml-graphics sfml-audio copy_resources)
+endforeach ()
 
 
 #file(GLOB_RECURSE SOURCES lab_8_steering/*.cpp lab_8_steering/*.h)
