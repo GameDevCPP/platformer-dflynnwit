@@ -11,4 +11,6 @@ Level3Scene level3;
 
 int main() {
   Engine::Start(1280, 720, "Platformer",&menu);
+
+  return EXIT_SUCCESS;
 }
