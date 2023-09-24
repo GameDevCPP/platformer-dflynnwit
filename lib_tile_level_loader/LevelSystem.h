@@ -63,8 +63,22 @@ protected:
   static float _tileSize; // for rendering
   static std::map<Tile, sf::Color> _colours;
 
+  // what advantages does having static members have over having non-static members?
+    //A: Static members are shared by all instances of the class. Non-static members
+    //   are unique to each instance of the class.
+    //   Static members can be accessed without an instance of the class.
+    //   Non-static members can only be accessed through an instance of the class.
+    //   Static members can be accessed from outside the class.
+
+
 private:
-  LevelSystem() = delete;
+  LevelSystem() = delete; //what does this do?
+  //A: It prevents the compiler from generating a default constructor for the class.
+  //   This is useful when you want to prevent the class from being instantiated.
+  //   In this case, the class is a collection of static methods, so it doesn't
+  //   make sense to instantiate it.
+
 
   ~LevelSystem() = delete;
+
 };
